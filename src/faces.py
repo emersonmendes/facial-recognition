@@ -2,8 +2,7 @@ import numpy as np
 import cv2 as cv
 import pickle
 
-face_cascade = cv.CascadeClassifier('/home/emerson/Downloads/facial-recognition/src/cascades/data/haarcascade_frontalface_default.xml')
-eye_cascade = cv.CascadeClassifier('/home/emerson/Downloads/facial-recognition/src/cascades/data/haarcascade_eye.xml')
+face_cascade = cv.CascadeClassifier('/home/emerson/Downloads/facial-recognition/src/cascades/data/lbpcascade_frontalface.xml')
 
 recognizer = cv.face.LBPHFaceRecognizer_create()
 
@@ -17,6 +16,7 @@ with open("labels.pickle", 'rb') as f:
 recognizer.read("trainer.yml")
 
 cap = cv.VideoCapture(0)
+#cap = cv.VideoCapture("/home/emerson/Downloads/video.mp4")
 
 while(True):
     
@@ -35,14 +35,16 @@ while(True):
 
         # xxxx
         id_, confidence = recognizer.predict(region_of_interest_gray)
-        if(confidence > 45):
+        if(confidence > 60 and confidence < 85):
             print(id_)
             print(labels[id_])
             font = cv.FONT_HERSHEY_SIMPLEX
             name = labels[id_]
             color = (255,255,255)
             stroke = 2
-            cv.putText(frame, name, (x, y), font, 1, color, stroke, cv.LINE_AA )
+            
+            label = "{}: {:.2f}%".format(name, confidence)
+            cv.putText(frame, label, (x, y), font, 1, color, stroke, cv.LINE_AA )
 
         # write last captured image 
         #cv.imwrite("my_img.png", region_of_interest_gray)

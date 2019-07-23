@@ -13,8 +13,7 @@ x_train = []
 current_id = 0
 label_ids = {}
 
-face_cascade = cv.CascadeClassifier('/home/emerson/Downloads/facial-recognition/src/cascades/data/haarcascade_frontalface_default.xml')
-eye_cascade = cv.CascadeClassifier('/home/emerson/Downloads/facial-recognition/src/cascades/data/haarcascade_eye.xml')
+face_cascade = cv.CascadeClassifier('/home/emerson/Downloads/facial-recognition/src/cascades/data/lbpcascade_frontalface.xml')
 
 recognizer = cv.face.LBPHFaceRecognizer_create()
 
