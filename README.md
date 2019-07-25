@@ -12,6 +12,6 @@ source ./env/bin/activate
 # Install deps
 pip install -r requirements.txt
 
-# update requirements.txt with current deps
+# Update requirements.txt with current deps
 pip freeze > requirements.txt
 ```

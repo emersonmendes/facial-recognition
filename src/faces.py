@@ -4,12 +4,18 @@ import pickle
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-face_cascade = cv2.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/data/lbpcascade_frontalface.xml'))
+face_cascade = cv2.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/data/haarcascade_frontalface_default.xml'))
 labels = {}
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read("trainer.yml")
+recognizer.read("trainer.yml") 
 
-def process_frames(cap):
+with open("labels.pickle", 'rb') as f: 
+    labels = {v:k for k,v in pickle.load(f).items()}
+
+#cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture("/home/emerson/Downloads/xx.mp4")
+
+while(True):
     # capture frame by frame
     ret, original_frame = cap.read()
     gray_frame = cv2.cvtColor(original_frame, cv2.COLOR_BGR2GRAY)
@@ -21,7 +27,7 @@ def process_frames(cap):
         region_of_interest = gray_frame[y:cord_y, x:cord_x]
 
         id_, confidence = recognizer.predict(region_of_interest)
-        if(confidence >= 60 and confidence <= 85):
+        if(confidence >= 45 and confidence <= 85):
             name = labels[id_]
             color = (255,255,255)
             label = "{}: {:.2f}%".format(name, confidence)
@@ -31,25 +37,9 @@ def process_frames(cap):
         cv2.rectangle(original_frame, (x, y), (cord_x, cord_y), (255,50,150), 2)
 
     # display result frame
-    cv2.imshow('frame', original_frame)  
+    cv2.imshow('frame', original_frame)          
+    if cv2.waitKey(20) & 0xFF == ord('q'):
+        break
 
-def init():
-    cap = cv2.VideoCapture(0)
-    #cap = cv2.VideoCapture("/home/emerson/Downloads/video.mp4")
-
-    while(True):
-        process_frames(cap)        
-        if cv2.waitKey(20) & 0xFF == ord('q'):
-            break
-
-    cap.release()
-    cv2.destroyAllWindows() 
-
-def load_labels():
-    labels = {}
-    with open("labels.pickle", 'rb') as f: 
-        labels = {v:k for k,v in pickle.load(f).items()}
-    return labels
-
-labels = load_labels()
-init()
+cap.release()
+cv2.destroyAllWindows() 

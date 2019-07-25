@@ -13,7 +13,7 @@ x_train = []
 current_id = 0
 label_ids = {}
 
-face_cascade = cv.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/data/lbpcascade_frontalface.xml'))
+face_cascade = cv.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/data/haarcascade_frontalface_default.xml'))
 
 recognizer = cv.face.LBPHFaceRecognizer_create()
 
