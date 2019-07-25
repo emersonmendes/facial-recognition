@@ -1,18 +1,18 @@
 import numpy as np
-import cv2 as cv
+import cv2
 import pickle
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-face_cascade = cv.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/data/lbpcascade_frontalface.xml'))
+face_cascade = cv2.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/data/lbpcascade_frontalface.xml'))
 labels = {}
-recognizer = cv.face.LBPHFaceRecognizer_create()
+recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read("trainer.yml")
 
 def process_frames(cap):
     # capture frame by frame
     ret, original_frame = cap.read()
-    gray_frame = cv.cvtColor(original_frame, cv.COLOR_BGR2GRAY)
+    gray_frame = cv2.cvtColor(original_frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.5, minNeighbors=5)
     
     for(x, y, w, h) in faces:
@@ -25,25 +25,25 @@ def process_frames(cap):
             name = labels[id_]
             color = (255,255,255)
             label = "{}: {:.2f}%".format(name, confidence)
-            cv.putText(original_frame, label, (x, y), cv.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv.LINE_AA )
+            cv2.putText(original_frame, label, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA )
 
         # draw rectangle
-        cv.rectangle(original_frame, (x, y), (cord_x, cord_y), (255,50,150), 2)
+        cv2.rectangle(original_frame, (x, y), (cord_x, cord_y), (255,50,150), 2)
 
     # display result frame
-    cv.imshow('frame', original_frame)  
+    cv2.imshow('frame', original_frame)  
 
 def init():
-    cap = cv.VideoCapture(0)
-    #cap = cv.VideoCapture("/home/emerson/Downloads/video.mp4")
+    cap = cv2.VideoCapture(0)
+    #cap = cv2.VideoCapture("/home/emerson/Downloads/video.mp4")
 
     while(True):
         process_frames(cap)        
-        if cv.waitKey(20) & 0xFF == ord('q'):
+        if cv2.waitKey(20) & 0xFF == ord('q'):
             break
 
     cap.release()
-    cv.destroyAllWindows() 
+    cv2.destroyAllWindows() 
 
 def load_labels():
     labels = {}

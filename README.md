@@ -1,7 +1,17 @@
 # facial-recognition
 
+## Dev
 
+``` bash
+# Install venv
+python3 -m venv ./env
 
-- virtual env
-    - https://medium.com/@aaditya.chhabra/virtualenv-with-virtualenvwrapper-on-ubuntu-34850ab9e765
+# Activate env
+source ./env/bin/activate
 
+# Install deps
+pip install -r requirements.txt
+
+# update requirements.txt with current deps
+pip freeze > requirements.txt
+```
