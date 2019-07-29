@@ -22,9 +22,7 @@ for root, dirs, files in os.walk(image_dir):
         if file.endswith("png") or file.endswith("jpg"):
             path = os.path.join(root, file)
             label = os.path.basename(root).replace(" ", "-").lower()
-            print(label, path)
-            
-
+                        
             if not label in label_ids:
                 label_ids[label] = current_id
                 current_id += 1
@@ -50,3 +48,5 @@ with open("labels.pickle", 'wb') as f:
 
 recognizer.train(x_train, np.array(y_labels))
 recognizer.save("trainer.yml")
+
+print('Successfully :)')
