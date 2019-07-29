@@ -20,11 +20,10 @@ cap = cv2.VideoCapture("/home/emerson/Downloads/xx.mp4")
 
 while True:
 
-    # capture frame by frame
     ret, frame = cap.read()
     frame = imutils.resize(frame, width=550)
 
-    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
+    gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     #faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.2, minNeighbors=5)
     faces = face_cascade.detectMultiScale(gray_frame)
@@ -41,8 +40,9 @@ while True:
             time.sleep(5)
 
     cv2.imshow('frame', frame)
+    key = cv2.waitKey(20)
 
-    if cv2.waitKey(20) & 0xFF == ord('q'):
+    if key == ord('q'):
         break
 
 cap.release()
