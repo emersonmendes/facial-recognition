@@ -1,7 +1,8 @@
-import numpy as np
+"""..."""
+
+import os
 import cv2
 import pickle
-import os
 import imutils
 import time
 
@@ -9,10 +10,10 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 face_cascade = cv2.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/lbpcascade_frontalface.xml'))
 labels = {}
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read("data/trainer.yml") 
+recognizer.read("data/trainer.yml")
 
 with open("data/labels.pickle", 'rb') as f: 
-    labels = {v:k for k,v in pickle.load(f).items()}
+    labels = {v:k for k, v in pickle.load(f).items()}
 
 #cap = cv2.VideoCapture(0)
 cap = cv2.VideoCapture("/home/emerson/Downloads/xx.mp4")
