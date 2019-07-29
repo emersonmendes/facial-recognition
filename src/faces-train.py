@@ -33,7 +33,7 @@ for root, dirs, files in os.walk(image_dir):
         image = image.resize((550, 550), Image.ANTIALIAS)
 
         image_array = np.array(image, "uint8")
-        faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.1, minNeighbors=5)
+        faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.2, minNeighbors=5)
 
         # get region_of_interest
         for(x, y, w, h) in faces:
