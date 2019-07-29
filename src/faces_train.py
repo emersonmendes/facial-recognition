@@ -50,8 +50,8 @@ def init():
 
 def save_data():
     recognizer.save("data/trainer.yml")
-    with open("data/labels.pickle", 'wb') as f:
-        pickle.dump(label_ids, f)
+    with open("data/labels.pickle", 'wb') as file:
+        pickle.dump(label_ids, file)
     print('Successfully :)')
 
 init()
