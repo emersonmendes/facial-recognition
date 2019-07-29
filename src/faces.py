@@ -4,12 +4,12 @@ import pickle
 import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-face_cascade = cv2.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/data/haarcascade_frontalface_default.xml'))
+face_cascade = cv2.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/haarcascade_frontalface_default.xml'))
 labels = {}
 recognizer = cv2.face.LBPHFaceRecognizer_create()
-recognizer.read("trainer.yml") 
+recognizer.read("data/trainer.yml") 
 
-with open("labels.pickle", 'rb') as f: 
+with open("data/labels.pickle", 'rb') as f: 
     labels = {v:k for k,v in pickle.load(f).items()}
 
 #cap = cv2.VideoCapture(0)
