@@ -30,21 +30,17 @@ for root, dirs, files in os.walk(image_dir):
                 current_id += 1
             id_ = label_ids[label]
 
-            pil_image = Image.open(path).convert("L") # convert to gray
+            # convert to gray
+            pil_image = Image.open(path).convert("L") 
 
-            size = (550, 550)
-            final_image = pil_image.resize(size, Image.ANTIALIAS)
+            final_image = pil_image.resize((550, 550), Image.ANTIALIAS)
 
             image_array = np.array(final_image, "uint8")
-            print(image_array)
             faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5)
-            cv.imwrite("my_img.png", image_array)
 
             # get region_of_interest
             for(x, y, w, h) in faces:
-                end_cordinate_y = y + h
-                end_cordinate_x = x + w
-                region_of_interest = image_array[y:end_cordinate_y, x:end_cordinate_x]
+                region_of_interest = image_array[y:y + h, x:x + w]
                 x_train.append(region_of_interest)
                 y_labels.append(id_)
 
