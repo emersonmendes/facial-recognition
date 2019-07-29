@@ -23,7 +23,7 @@ for root, dirs, files in os.walk(image_dir):
     for file in files:
         path = os.path.join(root, file)
         label = os.path.basename(root).replace(" ", "-").lower()
- 
+
         if not label in label_ids:
             label_ids[label] = current_id
             current_id += 1
