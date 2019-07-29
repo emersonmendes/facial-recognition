@@ -35,7 +35,7 @@ def init():
             image = image.resize((550, 550), Image.ANTIALIAS)
 
             image_array = np.array(image, "uint8")
-            faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5)
+            faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.2, minNeighbors=5, minSize=(50, 50), flags=cv2.CASCADE_SCALE_IMAGE)
 
             # get region_of_interest
             for(x_cord, y_cord, width, height) in faces:
