@@ -20,19 +20,18 @@ cap = cv2.VideoCapture("/home/emerson/Downloads/xx.mp4")
 
 while True:
 
-    ret, frame = cap.read()
+    check, frame = cap.read()
     frame = imutils.resize(frame, width=550)
 
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    #faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.2, minNeighbors=5)
-    faces = face_cascade.detectMultiScale(gray_frame)
+    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.2, minNeighbors=5)
 
     for(x, y, w, h) in faces:
         cv2.rectangle(frame, (x, y), (x+w, y+h), (255, 50, 150), 2)
         region_of_interest = gray_frame[y:y+h, x:x+w]
         id_, confidence = recognizer.predict(region_of_interest)
-        if(confidence >= 99 and confidence <= 100):
+        if(confidence >= 99.50 and confidence <= 100):
             name = labels[id_]
             label = "{}: {:.2f}%".format(name, confidence)
             cv2.putText(frame, label, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.5, (255, 255, 255), 2)

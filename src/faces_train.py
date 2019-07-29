@@ -21,7 +21,7 @@ def init():
     current_id = 0
     face_cascade = cv2.CascadeClassifier(frontalface)
 
-    for root, dirs, files in os.walk(image_dir):
+    for root, _, files in os.walk(image_dir):
         for file in files:
             path = os.path.join(root, file)
             label = os.path.basename(root).replace(" ", "-").lower()
@@ -34,8 +34,7 @@ def init():
             image = Image.open(path).convert("L").resize((550, 550), Image.ANTIALIAS)
 
             image_array = np.array(image, "uint8")
-            faces = face_cascade.detectMultiScale(image_array)
-            #faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.2, minNeighbors=5)
+            faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.2, minNeighbors=5)
 
             # get region_of_interest
             for(x_cord, y_cord, width, height) in faces:
