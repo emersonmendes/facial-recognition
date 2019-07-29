@@ -31,10 +31,11 @@ def init():
                 current_id += 1
             id_ = label_ids[label]
 
-            image = Image.open(path).convert("L").resize((550, 550), Image.ANTIALIAS)
+            image = Image.open(path).convert("L")
+            image = image.resize((550, 550), Image.ANTIALIAS)
 
             image_array = np.array(image, "uint8")
-            faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.2, minNeighbors=5)
+            faces = face_cascade.detectMultiScale(image_array, scaleFactor=1.5, minNeighbors=5)
 
             # get region_of_interest
             for(x_cord, y_cord, width, height) in faces:
