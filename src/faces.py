@@ -25,7 +25,8 @@ while(True):
 
     gray_frame = cv2.cvtColor(original_frame, cv2.COLOR_BGR2GRAY)   
 
-    faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.2, minNeighbors=5)
+    #faces = face_cascade.detectMultiScale(gray_frame, scaleFactor=1.2, minNeighbors=5)
+    faces = face_cascade.detectMultiScale(gray_frame)
 
     if (len(faces) == 0):
         continue
