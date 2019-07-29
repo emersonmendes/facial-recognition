@@ -1,4 +1,4 @@
-import cv2 as cv
+import cv2
 import os
 import numpy as np
 from PIL import Image
@@ -13,9 +13,9 @@ x_train = []
 current_id = 0
 label_ids = {}
 
-face_cascade = cv.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/lbpcascade_frontalface.xml'))
+face_cascade = cv2.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/lbpcascade_frontalface.xml'))
 
-recognizer = cv.face.LBPHFaceRecognizer_create()
+recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 for root, dirs, files in os.walk(image_dir):
     for file in files:

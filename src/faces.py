@@ -10,7 +10,6 @@ face_cascade = cv2.CascadeClassifier(os.path.join(BASE_DIR, 'cascades/lbpcascade
 labels = {}
 recognizer = cv2.face.LBPHFaceRecognizer_create()
 recognizer.read("data/trainer.yml") 
-color = (255,255,255)
 
 with open("data/labels.pickle", 'rb') as f: 
     labels = {v:k for k,v in pickle.load(f).items()}
@@ -31,24 +30,20 @@ while(True):
     if (len(faces) == 0):
         continue
     
-    found = False
     for(x, y, w, h) in faces:
         cv2.rectangle(original_frame, (x, y), (x+w, y+h), (255,50,150), 2)
         region_of_interest = gray_frame[y:y+h, x:x+w]
         id_, confidence = recognizer.predict(region_of_interest)
         if(confidence >= 99 and confidence <= 100):
-            label = ""
             name = labels[id_]
             label = "{}: {:.2f}%".format(name, confidence)
-            cv2.putText(original_frame, label, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA )
+            cv2.putText(original_frame, label, (x, y), cv2.FONT_HERSHEY_PLAIN, 1.5, (255,255,255), 2)
             print('label: ' + label)
-            found = True
+            time.sleep(5) 
 
-    cv2.imshow('frame', original_frame)
-    
-    if found:
-        time.sleep(3)          
-    
+    cv2.imshow('frame', original_frame) 
+
+
     if cv2.waitKey(20) & 0xFF == ord('q'):
         break
 
